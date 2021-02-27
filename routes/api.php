@@ -1,18 +1,14 @@
 <?php
 
+use App\Http\Actions\Product\Create as CreateProductAction;
+use App\Http\Actions\Product\Search as SearchProductsAction;
+use App\Http\Actions\Product\Update as UpdateProductAction;
 use Illuminate\Http\Request;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('products', [CreateProductAction::class, 'execute']);
+Route::put('products/{product}', [UpdateProductAction::class, 'execute']);
+Route::post('products/search', [SearchProductsAction::class, 'execute']);
