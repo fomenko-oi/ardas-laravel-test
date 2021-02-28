@@ -2,6 +2,7 @@
 
 use App\Repositories\CharacteristicsRepository;
 use Illuminate\Database\Seeder;
+use App\Entity\Characteristic;
 
 class CharacteristicsSeeder extends Seeder
 {
@@ -19,6 +20,6 @@ class CharacteristicsSeeder extends Seeder
     {
         $this->characteristics->create('Recommended room area');
         $this->characteristics->create('Color');
-        //$this->characteristics->create('Size', Characteristic::TYPE_SELECT, ['xl', 'md', 'xxl']);
+        $this->characteristics->create('Size', Characteristic::TYPE_SELECT, ['xl', 'md', 'xxl']);
     }
 }
