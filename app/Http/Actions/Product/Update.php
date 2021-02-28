@@ -5,10 +5,7 @@ namespace App\Http\Actions\Product;
 use App\Entity\Product;
 use App\Http\Actions\ApiResponsesTrait;
 use App\Http\Requests\Product\CreateRequest;
-use App\Http\Resources\ProductResource;
 use App\UseCases\Product\ProductService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Psr\Log\LoggerInterface;
 
 class Update
@@ -40,11 +37,9 @@ class Update
                 (array)$request->input('characteristics')
             );
 
-            return $this->success(new ProductResource($data));
+            return redirect()->route('products.index')->with('success', 'Product successful updated.');
         } catch (\Exception $e) {
-            $this->logger->error($e->getMessage());
-
-            return $this->error($e->getMessage());
+            return redirect()->back()->withInput($request->all())->with('error', $e->getMessage());
         }
     }
 }

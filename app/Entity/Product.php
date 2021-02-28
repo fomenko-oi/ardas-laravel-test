@@ -29,6 +29,17 @@ class Product extends Model
         return $this->hasMany(CharacteristicValue::class, 'product_id', 'id');
     }
 
+    public function getCharacteristicValue(int $characteristicId): ?string
+    {
+        foreach ($this->characteristicValues as $value) {
+            if ($characteristicId === $value->characteristic_id) {
+                return $value->value;
+            }
+        }
+
+        return null;
+    }
+
     public function addCharacteristic(int $characteristicId, string $value): CharacteristicValue
     {
         return $this->characteristicValues()->create([

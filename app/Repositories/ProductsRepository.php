@@ -3,13 +3,18 @@
 namespace App\Repositories;
 
 use App\Entity\Product;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProductsRepository
 {
-    public function find(string $q, $limit = 15): Collection
+    public function paginate($limit = 15): LengthAwarePaginator
     {
-        return Product::where('name', 'LIKE', "%{$q}%")->limit($limit)->get();
+        return Product::orderBy('id', 'DESC')->paginate($limit);
+    }
+
+    public function find(string $q, $limit = 15): LengthAwarePaginator
+    {
+        return Product::orderBy('id', 'DESC')->where('name', 'LIKE', "%{$q}%")->paginate($limit);
     }
 
     public function create(string $name, int $price): Product
@@ -25,5 +30,10 @@ class ProductsRepository
     public function getById(int $id): Product
     {
         return Product::with(['characteristicValues'])->findOrFail($id);
+    }
+
+    public function delete(Product $product): void
+    {
+        $product->delete();
     }
 }

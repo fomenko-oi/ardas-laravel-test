@@ -32,13 +32,16 @@ class SearchActionTest extends TestCase
 
         $response = $this->postJson('/api/products/search', ['q' => 'searchable']);
 
-        $response->assertStatus(200)->assertJson([
-            'success' => true,
-            'data' => [
-                ['id' => $product->id, 'name' => $product->name],
-                ['id' => $product2->id, 'name' => $product2->name],
-            ]
-        ])->assertJsonCount(2, 'data');
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => [
+                    ['id' => $product2->id, 'name' => $product2->name],
+                    ['id' => $product->id, 'name' => $product->name],
+                ]
+            ])
+            ->assertJsonCount(2, 'data');
     }
 
     public function testEmptyQueryValidationError()

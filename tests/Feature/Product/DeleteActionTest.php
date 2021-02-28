@@ -10,27 +10,29 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UpdateActionTest extends TestCase
+class DeleteActionTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSuccessProductUpdate()
+    public function testSuccessProductDelete()
     {
         /** @var Product $product */
-        $product = factory(Product::class)->create([
-            'name' => 'Test product',
-            'price' => 100
-        ]);
+        $product = factory(Product::class)->create();
 
-        $response = $this->put("/products/{$product->id}", [
-            'name' => 'Updated product',
-            'price' => 100500
-        ]);
+        $response = $this->delete("/products/{$product->id}");
 
         $response
             ->assertStatus(302)
-            ->assertSessionHas('success', 'Product successful updated.')
+            ->assertSessionHas('success', 'Product has been removed.')
             ->assertRedirect(route('products.index'))
+            ->assertSessionDoesntHaveErrors()
         ;
+    }
+
+    public function testNotExistedProductDelete()
+    {
+        $response = $this->delete('/products/100500');
+
+        $response->assertStatus(404);
     }
 }

@@ -17,9 +17,9 @@ class ProductService
         $this->products = $products;
     }
 
-    public function search(string $q)
+    public function search(string $q, $limit = 15)
     {
-        return $this->products->find($q);
+        return $this->products->find($q, $limit);
     }
 
     public function create(string $name, int $price, array $characteristics = []): Product
