@@ -1,8 +1,6 @@
 <?php
 
-use App\Entity\Characteristic;
 use App\Repositories\CharacteristicsRepository;
-use App\UseCases\Product\ProductService;
 use Illuminate\Database\Seeder;
 
 class CharacteristicsSeeder extends Seeder
