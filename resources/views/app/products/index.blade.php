@@ -63,14 +63,13 @@
 
                                 <li class="list-inline-item">
 
-                                    <form action="{{ route('products.destroy', $product) }}">
+                                    <form action="{{ route('products.destroy', $product) }}" class="product-remove">
                                         @csrf
-                                        <button class="btn btn-danger" type="button" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
+                                        <button class="btn btn-danger" type="submit" data-toggle="tooltip" data-placement="top" title="Delete">Delete</button>
                                     </form>
 
                                 </li>
                             </ul>
-
                         </td>
                     </tr>
 

@@ -29,6 +29,22 @@ class DeleteActionTest extends TestCase
         ;
     }
 
+    public function testSuccessProductAjaxDelete()
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->create();
+
+        $response = $this->deleteJson("/products/{$product->id}", [], ['X-Requested-With' => 'XMLHttpRequest']);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => []
+            ])
+        ;
+    }
+
     public function testNotExistedProductDelete()
     {
         $response = $this->delete('/products/100500');

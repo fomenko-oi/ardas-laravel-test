@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', config('app.name'))</title>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
@@ -24,6 +26,10 @@
 
     @include('layouts._partials.footer')
 </div>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
+@yield('js')
 
 </body>
 </html>

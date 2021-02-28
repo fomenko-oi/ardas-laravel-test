@@ -4,7 +4,7 @@ namespace App\Http\Actions;
 
 trait ApiResponsesTrait
 {
-    public function success($data): array
+    public function success($data = []): array
     {
         return ['success' => true, 'data' => $data];
     }
